@@ -64,8 +64,65 @@ $ sudo systemctl daemon-reload
 $ sudo systemctl status neofs-aio
 ```
 
+# Simple WebApp
 
+## Create a container
 
+First, you need to create a container to store your object. Because there is
+only one storage node in the All-in-One setup, you can only have one replica of
+your data. Let's create a container using `neofs-cli`. Container creation
+requires on-chain operations, so it may take up to 5-10 seconds to complete.
+Here we use the pre-generated key of the HTTP Gateway for simplicity.
 
+``` sh
+$ neofs-cli -r localhost:8080 -w http/node-wallet.json \
+            --address NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo \
+            container create \
+            --policy "REP 1" --basic-acl public-read --await
+container ID: GfWw35kHds7gKWmSvW7Zi4U39K7NMLK8EfXBQ5FPJA46
+awaiting...
+container has been persisted on sidechain
+```
+
+## Put an object with neofs-cli
+
+``` sh
+$ neofs-cli -r localhost:8080 -w http/node-wallet.json \
+            --address NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo
+            object put \
+            --cid GfWw35kHds7gKWmSvW7Zi4U39K7NMLK8EfXBQ5FPJA46 \
+            --file cat.jpg
+[cat.jpg] Object successfully stored
+  ID: BYwj7QRxubaLSsXxKU2nbBu3ugcyjv1SsAT4zxPXvosB
+  CID: GfWw35kHds7gKWmSvW7Zi4U39K7NMLK8EfXBQ5FPJA46
+```
+
+## Put an object via http
+
+``` sh
+$ curl -F 'file=@cat.jpg;filename=cat.jpg' \
+       http://localhost:8081/upload/ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo
+{
+	"object_id": "B4J4L61X6zFcz5fcmZaCJJNZfFFTE6uT4pz7dqP87m6m",
+	"container_id": "ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo"
+}
+```
+
+## Get an object via nginx
+
+``` sh
+$ curl --head http://localhost:8082/ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo/cat.jpg
+HTTP/1.1 200 OK
+Server: nginx/1.20.1
+Date: Wed, 07 Jul 2021 17:10:32 GMT
+Content-Type: image/jpeg
+Content-Length: 187342
+Connection: keep-alive
+X-Attribute-FileName: cat.jpg
+x-object-id: B4J4L61X6zFcz5fcmZaCJJNZfFFTE6uT4pz7dqP87m6m
+x-owner-id: NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo
+x-container-id: ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo
+Content-Disposition: inline; filename=cat.jpg
+```
 
 
