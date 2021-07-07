@@ -73,6 +73,19 @@ services:
     stop_signal: SIGKILL
     env_file: [ "./http/http.env" ]
 
+  nginx_gate:
+    image: nginx:stable-alpine
+    domainname: neofs
+    hostname: nginx_gate
+    container_name: nginx_gate
+    restart: on-failure
+    network_mode: host
+    volumes:
+      - ./http/nginx.conf:/etc/nginx/nginx.conf
+      - cache:/cache
+    stop_signal: SIGKILL
+
 volumes:
   data:
   chain:
+  cache:
