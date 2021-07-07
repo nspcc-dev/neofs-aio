@@ -19,7 +19,7 @@ services:
       - chain:/chain
 
   ir:
-    image: nspccdev/neofs-aio:0.22.0-18-g0bcc505
+    image: nspccdev/neofs-aio:0.22.2
     container_name: ir
     domainname: neofs
     hostname: ir
@@ -41,7 +41,7 @@ services:
       - ./vendor/locode_db:/config/locode.db
 
   sn:
-    image: nspccdev/neofs-aio:0.22.0-18-g0bcc505
+    image: nspccdev/neofs-aio:0.22.2
     domainname: neofs
     hostname: sn
     container_name: sn
@@ -61,23 +61,23 @@ services:
       retries: 5
       start_period: 10s
 
-  http_gate:
+  http_gw:
     image: nspccdev/neofs-http-gw:0.16.0
     domainname: neofs
-    hostname: http_gate
-    container_name: http_gate
+    hostname: http_gw
+    container_name: http_gw
     restart: on-failure
     network_mode: host
     volumes:
-      - ./http/node.key:/node.key
+      - ./http/node-wallet.json:/config/wallet.json
     stop_signal: SIGKILL
     env_file: [ "./http/http.env" ]
 
-  nginx_gate:
+  nginx_gw:
     image: nginx:stable-alpine
     domainname: neofs
-    hostname: nginx_gate
-    container_name: nginx_gate
+    hostname: nginx_gw
+    container_name: nginx_gw
     restart: on-failure
     network_mode: host
     volumes:
