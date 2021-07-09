@@ -103,10 +103,13 @@ $ neofs-cli -r localhost:8080 -w http/node-wallet.json \
 $ curl -F 'file=@cat.jpg;filename=cat.jpg' \
        http://localhost:8081/upload/ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo
 {
-	"object_id": "B4J4L61X6zFcz5fcmZaCJJNZfFFTE6uT4pz7dqP87m6m",
-	"container_id": "ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo"
+    "object_id": "B4J4L61X6zFcz5fcmZaCJJNZfFFTE6uT4pz7dqP87m6m",
+    "container_id": "ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo"
 }
 ```
+
+The full description of HTTP API supported by HTTP Gateway can be found in
+[neofs-http-gw repository](https://github.com/nspcc-dev/neofs-http-gw).
 
 ## Get an object via nginx
 
@@ -125,4 +128,50 @@ x-container-id: ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo
 Content-Disposition: inline; filename=cat.jpg
 ```
 
+Having nginx as a reverse proxy behind NeoFS HTTP Gateway allows you to tune the
+behaviour according to your application needs. For example, you can set the
+rewriting rules to use the pre-configured container for a specific domain to
+simplify the URL. Together with `FilePath` attribute in objects it would give
+the sense of a regular static web hosting.
 
+For example:
+``` nginx
+    location / {
+      set $cid ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo;
+
+      rewrite '^(/[0-9a-zA-Z\-]{43,44})$' /get/$cid/$1 break;
+      rewrite '^/$'                       /get_by_attribute/$cid/FileName/index.html break;
+      rewrite '^/([^/]*)$'                /get_by_attribute/$cid/FileName/$1 break;
+      rewrite '^(/.*)$'                   /get_by_attribute/$cid/FilePath/$1 break;
+
+      proxy_pass http://localhost:8081;
+```
+
+This allow us to upload objects with `FilePath` attached and get them as if they
+were put in a directory structure of the regular web server.
+
+``` sh
+ curl -F 'file=@cat.jpg;filename=cat.jpg' -H "X-Attribute-FilePath: /pic/cat.jpg" http://localhost:8081/upload/ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo 
+{
+	"object_id": "4s3T11pktSfSxRfjpJ7BsiuYr2hi7po6nUQ333SPYkWF",
+	"container_id": "ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo"
+}
+```
+
+Now you can get the `cat.jpg` in a traditional way, using your custom server name.
+
+``` sh
+$ curl --head http://mysite.neofs:8082/pic/cat.jpg
+HTTP/1.1 200 OK
+Server: nginx/1.20.1
+Date: Fri, 09 Jul 2021 08:14:23 GMT
+Content-Type: image/jpeg
+Content-Length: 187342
+Connection: keep-alive
+X-Attribute-FilePath: /pic/cat.jpg
+X-Attribute-FileName: cat.jpg
+x-object-id: 4s3T11pktSfSxRfjpJ7BsiuYr2hi7po6nUQ333SPYkWF
+x-owner-id: NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo
+x-container-id: ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo
+Content-Disposition: inline; filename=cat.jpg
+```
