@@ -3,7 +3,7 @@
 version: "2.4"
 services:
   morph:
-    image: nspccdev/neo-go:0.95.3
+    image: nspccdev/neo-go:0.95.4
     container_name: morph
     domainname: neofs
     hostname: morph
@@ -19,7 +19,7 @@ services:
       - chain:/chain
 
   ir:
-    image: nspccdev/neofs-aio:0.22.2
+    image: nspccdev/neofs-aio:0.22.3
     container_name: ir
     domainname: neofs
     hostname: ir
@@ -41,7 +41,7 @@ services:
       - ./vendor/locode_db:/config/locode.db
 
   sn:
-    image: nspccdev/neofs-aio:0.22.2
+    image: nspccdev/neofs-aio:0.22.3
     domainname: neofs
     hostname: sn
     container_name: sn
