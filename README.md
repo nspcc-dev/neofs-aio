@@ -40,6 +40,7 @@ Node 1: eQEUoc2DRn4oNnNUxs8iviWJYrYS4mTBsgQqjJ44aFyJ ONLINE [/dns4/localhost/tcp
 
 If you don't see the output like this, you can wait for the new Epoch to come
 (about 1 hour), or force the Storage Node registration.
+If the commands fails, make sure you have jq and expect installed.
 
 ``` sh
 $ docker-compose restart sn
