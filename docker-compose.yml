@@ -3,7 +3,7 @@
 version: "2.4"
 services:
   morph:
-    image: nspccdev/neo-go:0.95.4
+    image: nspccdev/neo-go:${NEOGO_VERSION}
     container_name: morph
     domainname: neofs
     hostname: morph
@@ -19,7 +19,7 @@ services:
       - chain:/chain
 
   ir:
-    image: nspccdev/neofs-aio:0.22.3
+    image: nspccdev/neofs-aio:${AIO_VERSION}
     container_name: ir
     domainname: neofs
     hostname: ir
@@ -35,20 +35,20 @@ services:
       retries: 5
       start_period: 20s
     volumes:
-      - ./morph/node-wallet.json:/config/wallet.json
+      - ./morph/node-wallet.json:/config/node-wallet.json
       - ./ir/wallet.key:/config/wallet.key
       - ./ir/config.yaml:/config/config.yaml
       - ./vendor/locode_db:/config/locode.db
 
   sn:
-    image: nspccdev/neofs-aio:0.22.3
+    image: nspccdev/neofs-aio:${AIO_VERSION}
     domainname: neofs
     hostname: sn
     container_name: sn
     restart: on-failure
     network_mode: host
     volumes:
-      - ./sn/wallet.key:/config/wallet.key
+      - ./sn/wallet.key:/config/wallet-sn.key
       - ./sn/config.yaml:/config/config.yaml
       - data:/data
     stop_signal: SIGKILL
@@ -62,7 +62,7 @@ services:
       start_period: 10s
 
   http_gw:
-    image: nspccdev/neofs-http-gw:0.16.0
+    image: nspccdev/neofs-http-gw:${S3GW_VERSION}
     domainname: neofs
     hostname: http_gw
     container_name: http_gw

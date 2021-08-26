@@ -1,5 +1,5 @@
 wallet:
-  path: /config/wallet.json
+  path: /config/node-wallet.json
   address: Nhfg3TbpwogLvDGVvAvqyThbsHgoSUKwtn
   password: 'one'
 

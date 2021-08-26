@@ -65,6 +65,13 @@ $ sudo systemctl daemon-reload
 $ sudo systemctl status neofs-aio
 ```
 
+# Build test container
+
+In order to build test container that can be used for instead of mocks run:
+``` sh
+$ make image-testcontainer
+```
+
 # Simple WebApp
 
 ## Create a container
