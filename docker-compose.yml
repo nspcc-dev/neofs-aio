@@ -55,14 +55,14 @@ services:
     entrypoint: /bin/neofs-node
     command: --config /config/config.yaml
     healthcheck:
-      test: ["CMD-SHELL", "/bin/neofs-cli control healthcheck -r localhost:16513 --binary-key /config/wallet.key | grep 'Health status: READY'"]
+      test: ["CMD-SHELL", "/bin/neofs-cli control healthcheck -r localhost:16513 --binary-key /config/wallet-sn.key | grep 'Health status: READY'"]
       interval: 2s
       timeout: 1s
       retries: 5
       start_period: 10s
 
   http_gw:
-    image: nspccdev/neofs-http-gw:${S3GW_VERSION}
+    image: nspccdev/neofs-http-gw:${HTTPGW_VERSION}
     domainname: neofs
     hostname: http_gw
     container_name: http_gw

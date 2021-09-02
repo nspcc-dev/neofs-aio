@@ -6,10 +6,10 @@ morph:
   dial_timeout: 20s
 
 contracts:
-  balance: d8f5cadd51d34602c751ef673496e7e5b615f223
-  netmap: a28b8ead5840f2d04240869089157ac31eee5c65
-  container: c241ae468ad95af029408e1845226d7771c7c60f
-  reputation: d623716b2faaa57f18d7d0d983d8d6bf9fe0469e
+  balance: 21fce15191428e9c2f0e8d0329ff6d3dd14882de
+  netmap: 6b5a4b75ed4540d14420a7c3264bb936cb78a2d4
+  container: ed22b4f21f785ed92c1e69e6b307a564aa6dd68d
+  reputation: 53fd67b63e405e102f8cbf1756726f773c8c2424
 
 control:
   grpc:

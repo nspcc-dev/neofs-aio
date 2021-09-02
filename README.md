@@ -18,11 +18,22 @@ $ docker-compose up -d
 ```
 
 All the services will be listening on `localhost` interface by default.
-On the first start you may have to make sure the storage node is in the network
+On the first start you have to run (this command will allow you to create containers):
+``` sh
+$ make prepare.ir
+Changing ContainerFee configration value to 0
+Enter account NfgHwwTi3wHAS8aFAN243C5vGbkYDpqLHP password > 
+Sent invocation transaction b50c3035b851db06eb070fadb88c4cd55d56436c01a92c0ba7f3197c9ec3b1fe
+Updating NeoFS epoch to 2
+Enter account NfgHwwTi3wHAS8aFAN243C5vGbkYDpqLHP password > 
+Sent invocation transaction 2a8d0536559f242f5b64bb1b29d4b1f4c7a225ab184a26414b93da18d265f1f4
+```
+
+Also, you may have to make sure the storage node is in the network
 map.
 
 ``` sh
-$ docker exec -ti sn neofs-cli  control netmap-snapshot --binary-key /config/wallet.key -r 127.0.0.1:16513
+$ docker exec -ti sn neofs-cli  control netmap-snapshot --binary-key /config/wallet-sn.key -r 127.0.0.1:16513
 Epoch: 3
 Node 1: eQEUoc2DRn4oNnNUxs8iviWJYrYS4mTBsgQqjJ44aFyJ ONLINE [/dns4/localhost/tcp/8080]
     Capacity: 0
@@ -45,7 +56,7 @@ If the commands fails, make sure you have jq and expect installed.
 ``` sh
 $ docker-compose restart sn
 Restarting sn ... done
-$ cd bin && ./tick.sh
+$ make tick.epoch
 Updating NeoFS epoch to 4
 Enter account NfgHwwTi3wHAS8aFAN243C5vGbkYDpqLHP password >
 Sent invocation transaction 89959b243e88184ab8b886ee6b53e13032195197ef45144abff1c64b2b5ea342
@@ -65,11 +76,15 @@ $ sudo systemctl daemon-reload
 $ sudo systemctl status neofs-aio
 ```
 
-# Build test container
+# Build images
 
-In order to build test container that can be used for instead of mocks run:
+In order to build test container image that can be used for instead of mocks run:
 ``` sh
 $ make image-testcontainer
+```
+Also, you can build the aio image itself:
+``` sh
+$ make image-aio
 ```
 
 # Simple WebApp
