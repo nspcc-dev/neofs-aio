@@ -33,6 +33,7 @@ COPY ./vendor/locode_db /config/locode.db
 COPY ./vendor/morph_chain.gz /config/morph_chain.gz
 COPY ./morph/protocol.privnet.yml /config/protocol.privnet.yml
 COPY ./morph/node-wallet.json /config/node-wallet.json
+COPY ./bin/ /config/bin
 
 
 ENTRYPOINT ["/usr/bin/init-testcontainer.sh"]
