@@ -25,9 +25,10 @@ done
 set -m
 /bin/neofs-node --config /config/config-sn.yaml &
 
-while [[ -z "$(/bin/neofs-cli control healthcheck -r localhost:16513 --binary-key /config/wallet-sn.key | grep 'Health status: READY')" ]];
+while [[ -z "$(/bin/neofs-cli control healthcheck -r localhost:16513 --binary-key /config/wallet-sn.key | grep 'Network status: ONLINE')" ]];
 do
-  sleep 1;
+  ./bin/tick.sh
+  sleep 5;
 done
 
 echo "aio container started"
