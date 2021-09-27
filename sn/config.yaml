@@ -5,12 +5,6 @@ morph:
     - ws://localhost:30333/ws
   dial_timeout: 20s
 
-contracts:
-  balance: 21fce15191428e9c2f0e8d0329ff6d3dd14882de
-  netmap: 6b5a4b75ed4540d14420a7c3264bb936cb78a2d4
-  container: ed22b4f21f785ed92c1e69e6b307a564aa6dd68d
-  reputation: 53fd67b63e405e102f8cbf1756726f773c8c2424
-
 control:
   grpc:
     endpoint: localhost:16513
@@ -62,14 +56,6 @@ storage:
 
 object:
   put:
-    pool_size: 100
-  get:
-    pool_size: 100
-  head:
-    pool_size: 100
-  search:
-    pool_size: 100
-  range:
-    pool_size: 100
-  rangehash:
-    pool_size: 100
+    pool_size_remote: 100
+    pool_size_local: 100
+

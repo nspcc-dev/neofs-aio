@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-NEOFS_IR_CONTRACTS_NETMAP='6b5a4b75ed4540d14420a7c3264bb936cb78a2d4'
-
 # NeoGo binary path.
 NEOGO="${NEOGO:-docker exec -it morph neo-go}"
 
 # Wallet files to change config value
 WALLET="${WALLET:-./morph/node-wallet.json}"
 WALLET_IMG="${WALLET_IMG:-config/node-wallet.json}"
+
+# Netmap contract address resolved by NNS
+NETMAP_ADDR=`./bin/resolve.sh netmap.neofs`
 
 # Wallet password that would be entered automatically; '-' means no password
 PASSWD="one"
@@ -28,7 +29,7 @@ echo "Changing ${KEY} configration value to ${VALUE}"
 -w ${WALLET_IMG} \
 -a ${ADDR} \
 -r http://localhost:30333 \
-${NEOFS_IR_CONTRACTS_NETMAP} \
+${NETMAP_ADDR} \
 setConfig bytes:beefcafe \
 string:${KEY} \
 int:${VALUE} -- ${ADDR} || exit 1
