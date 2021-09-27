@@ -3,7 +3,6 @@ wallet:
   address: Nhfg3TbpwogLvDGVvAvqyThbsHgoSUKwtn
   password: 'one'
 
-without_main_notary: true
 without_mainnet: true
 
 morph:
@@ -13,18 +12,8 @@ morph:
   validators: 02b3622bf4017bdfe317c58aed5f4c753f206b7db896046fa7d774bbc4bf7f8dc2
 
 contracts:
-  audit: eb0bc2d4d02d2c2df424ee252ed07a51f197670e
-  balance: 21fce15191428e9c2f0e8d0329ff6d3dd14882de
-  container: ed22b4f21f785ed92c1e69e6b307a564aa6dd68d
-  neofs: b65d8243ac63983206d17e5221af0653a7266fa1
-  netmap: 6b5a4b75ed4540d14420a7c3264bb936cb78a2d4
-  reputation: 53fd67b63e405e102f8cbf1756726f773c8c2424
-  processing: 91840e88a603db8b422ce472fedabe389d17e228
-  proxy: d031ae16a264d019ca32662bfd8fa0809db45361
-  neofsid: 96c1c6db6c52de1f90423be02fb73acac5cd9964
   alphabet:
     amount: 1
-    az: 32bec31e059fecefdeb9c0e15f840a0439b5a713
 
 timers:
   emit:  300
@@ -60,6 +49,7 @@ workers:
   neofs: 100
   container: 100
   alphabet: 100
+  reputation: 100
 
 logger:
   level: debug
