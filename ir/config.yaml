@@ -16,7 +16,7 @@ contracts:
     amount: 1
 
 timers:
-  emit:  300
+  emit:  50
   stop_estimation:
     mul: 1
     div: 4
