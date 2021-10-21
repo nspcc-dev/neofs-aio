@@ -33,7 +33,7 @@ Also, you may have to make sure the storage node is in the network
 map.
 
 ``` sh
-$ docker exec -ti sn neofs-cli  control netmap-snapshot --binary-key /config/wallet-sn.key -r 127.0.0.1:16513
+$ docker exec -ti sn neofs-cli  control netmap-snapshot --binary-key /config/wallet-sn.key --endpoint 127.0.0.1:16513
 Epoch: 3
 Node 1: eQEUoc2DRn4oNnNUxs8iviWJYrYS4mTBsgQqjJ44aFyJ ONLINE [/dns4/localhost/tcp/8080]
     Capacity: 0
