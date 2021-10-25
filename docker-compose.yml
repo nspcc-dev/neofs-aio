@@ -16,7 +16,6 @@ services:
       - ./vendor/morph_chain.gz:/config/morph_chain.gz
       - ./morph/protocol.privnet.yml:/config/protocol.privnet.yml
       - ./morph/node-wallet.json:/config/node-wallet.json
-      - chain:/chain
 
   ir:
     image: nspccdev/neofs-aio:${AIO_VERSION}
@@ -87,5 +86,4 @@ services:
 
 volumes:
   data:
-  chain:
   cache:
