@@ -97,6 +97,8 @@ your data. Let's create a container using `neofs-cli`. Container creation
 requires on-chain operations, so it may take up to 5-10 seconds to complete.
 Here we use the pre-generated key of the HTTP Gateway for simplicity.
 
+Password for wallet is `one`.
+
 ``` sh
 $ neofs-cli -r localhost:8080 -w http/node-wallet.json \
             --address NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo \
