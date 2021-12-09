@@ -47,9 +47,9 @@ storage:
         path: /data/blob
         perm: 0660
         blobovnicza:
-          opened_cache_size: 32
-          shallow_depth: 1
-          shallow_width: 1
+          opened_cache_capacity: 32
+          depth: 1
+          width: 1
       gc:
         remover_batch_size: 100
         remover_sleep_interval: 5m
