@@ -11,10 +11,6 @@ morph:
     notification: ws://localhost:30333/ws
   validators: 02b3622bf4017bdfe317c58aed5f4c753f206b7db896046fa7d774bbc4bf7f8dc2
 
-contracts:
-  alphabet:
-    amount: 1
-
 timers:
   emit:  50
   stop_estimation:
