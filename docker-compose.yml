@@ -16,6 +16,12 @@ services:
       - ./vendor/morph_chain.gz:/config/morph_chain.gz
       - ./morph/protocol.privnet.yml:/config/protocol.privnet.yml
       - ./morph/node-wallet.json:/config/node-wallet.json
+    healthcheck:
+      test: ["CMD-SHELL", "neo-go query committee -r http://127.0.0.1:30333 | grep 02b3622bf4017bdfe317c58aed5f4c753f206b7db896046fa7d774bbc4bf7f8dc2"]
+      interval: 2s
+      timeout: 1s
+      retries: 5
+      start_period: 10s
 
   ir:
     image: nspccdev/neofs-aio:${AIO_VERSION}
@@ -38,6 +44,9 @@ services:
       - ./ir/wallet.key:/config/wallet.key
       - ./ir/config.yaml:/config/config.yaml
       - ./vendor/locode_db:/config/locode.db
+    depends_on:
+      morph:
+        condition: service_healthy
 
   sn:
     image: nspccdev/neofs-aio:${AIO_VERSION}
@@ -59,6 +68,9 @@ services:
       timeout: 1s
       retries: 5
       start_period: 10s
+    depends_on:
+      ir:
+        condition: service_healthy
 
   http_gw:
     image: nspccdev/neofs-http-gw:${HTTPGW_VERSION}
@@ -71,6 +83,8 @@ services:
       - ./http/node-wallet.json:/config/wallet.json
     stop_signal: SIGKILL
     env_file: [ "./http/http.env" ]
+    depends_on:
+      - sn
 
   nginx_gw:
     image: nginx:stable-alpine
@@ -83,6 +97,8 @@ services:
       - ./http/nginx.conf:/etc/nginx/nginx.conf
       - cache:/cache
     stop_signal: SIGKILL
+    depends_on:
+      - http_gw
 
 volumes:
   data:
