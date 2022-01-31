@@ -39,7 +39,8 @@ storage:
   shard_num: 1
   shard:
     0:
-      use_write_cache: False
+      writecache:
+        enabled: false
       metabase:
         path: /data/metabase.db
         perm: 0770
