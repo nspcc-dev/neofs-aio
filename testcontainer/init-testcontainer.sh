@@ -13,7 +13,7 @@ export NEOGO=/usr/bin/neo-go
 export WALLET=/config/node-wallet.json
 export WALLET_IMG=/config/node-wallet.json
 
-cd /config && ./bin/config.sh ContainerFee 0
+cd /config && ./bin/config.sh ContainerFee 0 && ./bin/config.sh ContainerAliasFee 0
 
 /bin/neofs-ir --config /config/config-ir.yaml &
 
