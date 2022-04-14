@@ -8,6 +8,9 @@ development purposes only and not recommended for production use.
 # Server requirements
 
 - Docker with docker-compose
+- `expect` 
+- `jq`
+- `curl`
 
 # Quick Start
 
