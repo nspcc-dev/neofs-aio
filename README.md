@@ -14,6 +14,7 @@ development purposes only and not recommended for production use.
 
 # Quick Start
 
+For Linux machines:
 ``` sh
 $ git clone https://github.com/nspcc-dev/neofs-aio.git /opt/neofs
 $ cd /opt/neofs
@@ -21,6 +22,14 @@ $ docker-compose up -d
 ```
 
 All the services will be listening on `localhost` interface by default.
+
+For Windows and macOS use `docker-compose.cross.yml` without `host` network mode.
+``` sh
+$ git clone https://github.com/nspcc-dev/neofs-aio.git /opt/neofs
+$ cd /opt/neofs
+$ docker-compose -f docker-compose.cross.yml up -d
+```
+
 On the first start you have to run (this command will allow you to create containers):
 ``` sh
 $ make prepare.ir
