@@ -125,7 +125,7 @@ container has been persisted on sidechain
 
 ``` sh
 $ neofs-cli -r localhost:8080 -w http/node-wallet.json \
-            --address NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo
+            --address NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo \
             object put \
             --cid GfWw35kHds7gKWmSvW7Zi4U39K7NMLK8EfXBQ5FPJA46 \
             --file cat.jpg
