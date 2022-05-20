@@ -40,6 +40,7 @@ tick.epoch:
 # Update container fee per alphabet node
 prepare.ir:
 	@./bin/config.sh ContainerFee 0
+	@./bin/config.sh ContainerAliasFee 0
 
 # Show current version
 version:
