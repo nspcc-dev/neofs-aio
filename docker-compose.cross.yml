@@ -32,8 +32,7 @@ services:
     restart: on-failure
     stop_signal: SIGKILL
     environment:
-      - NEOFS_IR_MORPH_ENDPOINT_CLIENT=http://morph:30333
-      - NEOFS_IR_MORPH_ENDPOINT_NOTIFICATION=ws://morph:30333/ws
+      - NEOFS_IR_MORPH_ENDPOINT_CLIENT=ws://morph:30333/ws
     volumes:
       - ./morph/node-wallet.json:/config/node-wallet.json
       - ./ir/wallet.key:/config/wallet.key
@@ -59,8 +58,7 @@ services:
     restart: on-failure
     stop_signal: SIGKILL
     environment:
-      - NEOFS_MORPH_RPC_ENDPOINT=http://morph:30333
-      - NEOFS_MORPH_NOTIFICATION_ENDPOINT=ws://morph:30333/ws
+      - NEOFS_MORPH_RPC_ENDPOINT=ws://morph:30333/ws
       - NEOFS_NODE_ADDRESSES=grpc://sn:8080
       - NEOFS_GRPC_0_ENDPOINT=:8080
       - NEOFS_CONTROL_GRPC_ENDPOINT=:16513
