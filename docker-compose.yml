@@ -72,6 +72,23 @@ services:
       ir:
         condition: service_healthy
 
+  rest_gw:
+    image: nspccdev/neofs-rest-gw:${RESTGW_VERSION}
+    domainname: neofs
+    hostname: rest_gw
+    container_name: rest_gw
+    network_mode: host
+    restart: on-failure
+    volumes:
+      - ./rest/config.yaml:/config/config.yaml
+      - ./rest/wallet.json:/config/wallet.json
+    stop_signal: SIGKILL
+    entrypoint: /bin/neofs-rest-gw
+    command: --config /config/config.yaml
+    depends_on:
+      sn:
+        condition: service_healthy
+
   http_gw:
     image: nspccdev/neofs-http-gw:${HTTPGW_VERSION}
     domainname: neofs

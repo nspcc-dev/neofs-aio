@@ -1,0 +1,80 @@
+wallet:
+  # Path to wallet.
+  path: /config/wallet.json
+  # Account address. If omitted default one will be used.
+  address: NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo
+  # Password to decrypt wallet.
+  passphrase: one
+
+# Enable metrics.
+metrics: true
+# Enable pprof.
+pprof: true
+logger:
+  # Log level.
+  level: debug
+
+# Nodes configuration.
+# This configuration make gateway use the first node (grpc://s01.neofs.devenv:8080)
+# while it's healthy. Otherwise, gateway use the second node (grpc://s01.neofs.devenv:8080)
+# for 10% of requests and the third node for 90% of requests.
+peers:
+  0:
+    # Endpoint.
+    address: grpc://localhost:8080
+    # Until nodes with the same priority level are healthy
+    # nodes with other priority are not used.
+    # Еhe lower the value, the higher the priority.
+    priority: 1
+    # Load distribution proportion for nodes with the same priority.
+    weight: 1
+
+
+# Timeout to dial node.
+node-dial-timeout: 5s
+# Timeout to check node health during rebalance.
+healthcheck-timeout: 5s
+# Interval to check nodes health.
+rebalance_timer: 30s
+
+# The listeners to enable, this can be repeated and defaults to the schemes in the swagger spec.
+scheme: [ http ]
+# Grace period for which to wait before killing idle connections
+cleanup-timeout: 10s
+# Grace period for which to wait before shutting down the server
+graceful-timeout: 15s
+# Controls the maximum number of bytes the server will read parsing the request header's keys and values,
+# including the request line. It does not limit the size of the request body.
+max-header-size: 1000000
+
+# The IP and port to listen on.
+listen-address: 0.0.0.0:8083
+# Limit the number of outstanding requests.
+listen-limit: 0
+# Sets the TCP keep-alive timeouts on accepted connections.
+# It prunes dead TCP connections ( e.g. closing laptop mid-download).
+keep-alive: 3m
+# Maximum duration before timing out read of the request.
+read-timeout: 30s
+# Maximum duration before timing out write of the response.
+write-timeout: 30s
+
+# The IP and port to listen on.
+#tls-listen-address: localhost:8081
+# The certificate file to use for secure connections.
+#tls-certificate: /path/to/tls/cert
+# The private key file to use for secure connections (without passphrase).
+#tls-key: /path/to/tls/key
+# The certificate authority certificate file to be used with mutual tls auth.
+#tls-ca: /path/to/tls/ca
+# Limit the number of outstanding requests.
+tls-listen-limit: 0
+# Sets the TCP keep-alive timeouts on accepted connections.
+# It prunes dead TCP connections ( e.g. closing laptop mid-download).
+tls-keep-alive: 3m
+# Maximum duration before timing out read of the request.
+tls-read-timeout: 30s
+# Maximum duration before timing out write of the response.
+tls-write-timeout: 30s
+
+

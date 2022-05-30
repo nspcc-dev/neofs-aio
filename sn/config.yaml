@@ -1,5 +1,7 @@
 morph:
   rpc_endpoint:
+    - http://localhost:30333
+  notification_endpoint:
     - ws://localhost:30333/ws
   dial_timeout: 20s
 
