@@ -101,6 +101,24 @@ services:
     depends_on:
       - sn
 
+  rest_gw:
+    image: nspccdev/neofs-rest-gw:${RESTGW_VERSION}
+    domainname: neofs
+    hostname: rest_gw
+    container_name: rest_gw
+    restart: on-failure
+    stop_signal: SIGKILL
+    env_file: [ "./rest-gw/rest.env" ]
+    environment:
+      - REST_GW_LISTEN_ADDRESS=:8090
+      - REST_GW_PEERS_0_ADDRESS=sn:8080
+    volumes:
+      - ./rest-gw/node-wallet.json:/config/wallet.json
+    ports:
+      - "8090:8090" # REST Gateway endpoint
+    depends_on:
+      - sn
+
   nginx_gw:
     image: nginx:stable-alpine
     domainname: neofs
