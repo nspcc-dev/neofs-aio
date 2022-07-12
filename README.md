@@ -121,6 +121,27 @@ awaiting...
 container has been persisted on sidechain
 ```
 
+## Get container
+
+```sh
+$ curl http://localhost:8090/v1/containers/GfWw35kHds7gKWmSvW7Zi4U39K7NMLK8EfXBQ5FPJA46 | jq
+{
+  "attributes": [
+    {
+      "key": "Timestamp",
+      "value": "1661861767"
+    }
+  ],
+  "basicAcl": "1fbf8cff",
+  "cannedAcl": "public-read",
+  "containerId": "iafCKZmWu1mahdxxcA6HRYdB5S9BrypYF1qNqpQezpA",
+  "containerName": "",
+  "ownerId": "NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo",
+  "placementPolicy": "REP 1",
+  "version": "v2.13"
+}
+```
+
 ## Put an object with neofs-cli
 
 ``` sh

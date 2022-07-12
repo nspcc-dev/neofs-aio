@@ -87,6 +87,20 @@ services:
     depends_on:
       - sn
 
+  rest_gw:
+    image: nspccdev/neofs-rest-gw:${RESTGW_VERSION}
+    domainname: neofs
+    hostname: rest_gw
+    container_name: rest_gw
+    restart: on-failure
+    network_mode: host
+    volumes:
+      - ./rest-gw/node-wallet.json:/config/wallet.json
+    stop_signal: SIGKILL
+    env_file: [ "./rest-gw/rest.env" ]
+    depends_on:
+      - sn
+
   nginx_gw:
     image: nginx:stable-alpine
     domainname: neofs
