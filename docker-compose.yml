@@ -17,7 +17,7 @@ services:
       - ./morph/protocol.privnet.yml:/config/protocol.privnet.yml
       - ./morph/node-wallet.json:/config/node-wallet.json
     healthcheck:
-      test: ["CMD-SHELL", "neo-go query committee -r http://127.0.0.1:30333 | grep 02b3622bf4017bdfe317c58aed5f4c753f206b7db896046fa7d774bbc4bf7f8dc2"]
+      test: [ "CMD-SHELL", "neo-go query committee -r http://127.0.0.1:30333 | grep 02b3622bf4017bdfe317c58aed5f4c753f206b7db896046fa7d774bbc4bf7f8dc2" ]
       interval: 2s
       timeout: 1s
       retries: 5
@@ -34,14 +34,14 @@ services:
     entrypoint: /bin/neofs-ir
     command: --config /config/config.yaml
     healthcheck:
-      test: ["CMD-SHELL", "/bin/neofs-cli control healthcheck --ir --endpoint localhost:16512 --wallet /config/wallet.key | grep 'Health status: READY'"]
+      test: [ "CMD-SHELL", "/bin/neofs-cli control healthcheck --ir --endpoint localhost:16512 -c /config/cli-cfg.yaml | grep 'Health status: READY'" ]
       interval: 2s
       timeout: 1s
       retries: 5
       start_period: 20s
     volumes:
       - ./morph/node-wallet.json:/config/node-wallet.json
-      - ./ir/wallet.key:/config/wallet.key
+      - ./ir/cli-cfg.yaml:/config/cli-cfg.yaml
       - ./ir/config.yaml:/config/config.yaml
       - ./vendor/locode_db:/config/locode.db
     depends_on:
@@ -56,14 +56,15 @@ services:
     restart: on-failure
     network_mode: host
     volumes:
-      - ./sn/wallet.key:/config/wallet-sn.key
+      - ./sn/cli-cfg.yaml:/config/cli-cfg.yaml
+      - ./sn/wallet.json:/config/wallet-sn.json
       - ./sn/config.yaml:/config/config.yaml
       - data:/data
     stop_signal: SIGKILL
     entrypoint: /bin/neofs-node
     command: --config /config/config.yaml
     healthcheck:
-      test: ["CMD-SHELL", "/bin/neofs-cli control healthcheck --endpoint localhost:16513 --wallet /config/wallet-sn.key | grep 'Health status: READY'"]
+      test: [ "CMD-SHELL", "/bin/neofs-cli control healthcheck --endpoint localhost:16513 -c /config/cli-cfg.yaml | grep 'Health status: READY'" ]
       interval: 2s
       timeout: 1s
       retries: 5
@@ -80,7 +81,7 @@ services:
     restart: on-failure
     network_mode: host
     volumes:
-      - ./http/node-wallet.json:/config/wallet.json
+      - ./http/wallet.json:/config/wallet.json
     stop_signal: SIGKILL
     env_file: [ "./http/http.env" ]
     depends_on:

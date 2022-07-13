@@ -17,7 +17,7 @@ cd /config && ./bin/config.sh ContainerFee 0 && ./bin/config.sh ContainerAliasFe
 
 /bin/neofs-ir --config /config/config-ir.yaml &
 
-while [[ -z "$(/bin/neofs-cli control healthcheck --ir --endpoint localhost:16512 --wallet /config/wallet.key | grep 'Health status: READY')" ]];
+while [[ -z "$(/bin/neofs-cli control healthcheck --ir --endpoint localhost:16512 -c /config/cli-cfg-ir.yaml | grep 'Health status: READY')" ]];
 do
   sleep 1;
 done
@@ -25,7 +25,7 @@ done
 set -m
 /bin/neofs-node --config /config/config-sn.yaml &
 
-while [[ -z "$(/bin/neofs-cli control healthcheck --endpoint localhost:16513 --wallet /config/wallet-sn.key | grep 'Network status: ONLINE')" ]];
+while [[ -z "$(/bin/neofs-cli control healthcheck --endpoint localhost:16513 -c /config/cli-cfg-sn.yaml | grep 'Network status: ONLINE')" ]];
 do
   ./bin/tick.sh
   sleep 5;
