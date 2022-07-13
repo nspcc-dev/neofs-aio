@@ -8,7 +8,9 @@ control:
     endpoint: localhost:16513
 
 node:
-  key: /config/wallet-sn.key
+  wallet:
+    path: /config/wallet-sn.json
+    password: ""
   addresses:
     - grpc://localhost:8080
   attribute_0: UN-LOCODE:DE FKS

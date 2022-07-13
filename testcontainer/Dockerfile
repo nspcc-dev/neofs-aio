@@ -25,9 +25,10 @@ COPY --from=neofs-all /bin/neofs-node /bin/neofs-node
 COPY --from=neofs-all /bin/neofs-cli /bin/neofs-cli
 
 COPY ./testcontainer/init-testcontainer.sh /usr/bin/
-COPY ./sn/wallet.key /config/wallet-sn.key
+COPY ./sn/cli-cfg.yaml /config/cli-cfg-sn.yaml
+COPY ./sn/wallet.json /config/wallet-sn.json
 COPY ./sn/config.yaml /config/config-sn.yaml
-COPY ./ir/wallet.key /config/wallet.key
+COPY ./ir/cli-cfg.yaml /config/cli-cfg-ir.yaml
 COPY ./ir/config.yaml /config/config-ir.yaml
 COPY ./vendor/locode_db /config/locode.db
 COPY ./vendor/morph_chain.gz /config/morph_chain.gz
