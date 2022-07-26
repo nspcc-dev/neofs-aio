@@ -1,6 +1,6 @@
 morph:
   rpc_endpoint:
-    - ws://localhost:30333/ws
+    - address: ws://localhost:30333/ws
   dial_timeout: 20s
 
 control:
@@ -27,11 +27,11 @@ grpc:
 logger:
   level: debug
 
-metrics:
+prometheus:
   enabled: false
   address: localhost:6664
 
-profiler:
+pprof:
   enabled: false
   address: localhost:6663
 

@@ -45,7 +45,7 @@ Also, you may have to make sure the storage node is in the network
 map.
 
 ``` sh
-$ docker exec -ti sn neofs-cli  control netmap-snapshot --wallet /config/wallet-sn.key --endpoint 127.0.0.1:16513
+$ docker exec -ti sn neofs-cli  control netmap-snapshot -c /config/cli-cfg.yaml --endpoint 127.0.0.1:16513
 Epoch: 3
 Node 1: eQEUoc2DRn4oNnNUxs8iviWJYrYS4mTBsgQqjJ44aFyJ ONLINE [/dns4/localhost/tcp/8080]
     Capacity: 0
@@ -112,7 +112,7 @@ Here we use the pre-generated key of the HTTP Gateway for simplicity.
 Password for wallet is `one`.
 
 ``` sh
-$ neofs-cli -r localhost:8080 -w http/node-wallet.json \
+$ neofs-cli -r localhost:8080 -w http/wallet.json \
             --address NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo \
             container create \
             --policy "REP 1" --basic-acl public-read --await
@@ -124,7 +124,7 @@ container has been persisted on sidechain
 ## Put an object with neofs-cli
 
 ``` sh
-$ neofs-cli -r localhost:8080 -w http/node-wallet.json \
+$ neofs-cli -r localhost:8080 -w http/wallet.json \
             --address NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo \
             object put \
             --cid GfWw35kHds7gKWmSvW7Zi4U39K7NMLK8EfXBQ5FPJA46 \
