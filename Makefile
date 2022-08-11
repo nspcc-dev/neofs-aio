@@ -5,7 +5,7 @@ include help.mk
 
 # Common variables
 REPO=$(notdir $(shell pwd))
-VERSION ?= "$(shell git describe --tags 2>/dev/null || git rev-parse --short HEAD | sed 's/^v//')"
+VERSION ?= "$(shell git describe --tags --match "v*" 2>/dev/null || git rev-parse --short HEAD | sed 's/^v//')"
 
 # Variables for docker
 HUB_IMAGE ?= "nspccdev/neofs"
