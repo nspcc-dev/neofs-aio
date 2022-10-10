@@ -45,9 +45,9 @@ storage:
         path: /data/metabase.db
         perm: 0770
       blobstor:
-        path: /data/blob
-        perm: 0660
-        blobovnicza:
+        - type: blobovnicza
+          path: /data/blob
+          perm: 0660
           opened_cache_capacity: 32
           depth: 1
           width: 1
