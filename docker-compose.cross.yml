@@ -20,7 +20,7 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "neo-go query committee -r http://127.0.0.1:30333 | grep 02b3622bf4017bdfe317c58aed5f4c753f206b7db896046fa7d774bbc4bf7f8dc2" ]
       interval: 2s
-      timeout: 1s
+      timeout: 3s
       retries: 5
       start_period: 10s
 
@@ -43,7 +43,7 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "/bin/neofs-cli control healthcheck --ir --endpoint localhost:16512 -c /config/cli-cfg.yaml | grep 'Health status: READY'" ]
       interval: 2s
-      timeout: 1s
+      timeout: 3s
       retries: 5
       start_period: 20s
     depends_on:
@@ -75,7 +75,7 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "/bin/neofs-cli control healthcheck --endpoint localhost:16513 -c /config/cli-cfg.yaml | grep 'Health status: READY'" ]
       interval: 2s
-      timeout: 1s
+      timeout: 3s
       retries: 5
       start_period: 10s
     depends_on:
