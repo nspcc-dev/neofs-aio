@@ -41,14 +41,20 @@ Enter account NfgHwwTi3wHAS8aFAN243C5vGbkYDpqLHP password >
 Sent invocation transaction 2a8d0536559f242f5b64bb1b29d4b1f4c7a225ab184a26414b93da18d265f1f4
 ```
 
+A storage node container uses persistent storage, so, if you've updated `aio` version, it's recommended to clear local 
+volumes before starting the container:  
+```
+docker volume rm neofs-aio_data
+docker volume rm neofs-aio_cache
+```
+
 Also, you may have to make sure the storage node is in the network
 map.
 
 ``` sh
-$ docker exec -ti sn neofs-cli  control netmap-snapshot -c /config/cli-cfg.yaml --endpoint 127.0.0.1:16513
-Epoch: 3
-Node 1: eQEUoc2DRn4oNnNUxs8iviWJYrYS4mTBsgQqjJ44aFyJ ONLINE [/dns4/localhost/tcp/8080]
-    Capacity: 0
+$ docker exec -ti sn neofs-cli netmap snapshot -c /config/cli-cfg.yaml --rpc-endpoint 127.0.0.1:8080
+Epoch: 45
+Node 1: 022bb4041c50d607ff871dec7e4cd7778388e0ea6849d84ccbd9aa8f32e16a8131 ONLINE /dns4/localhost/tcp/8080
     Continent: Europe
     Country: Germany
     CountryCode: DE
