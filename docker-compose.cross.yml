@@ -134,6 +134,26 @@ services:
     depends_on:
       - http_gw
 
+  s3_gw:
+    image: nspccdev/neofs-s3-gw:${S3GW_VERSION}
+    domainname: neofs
+    hostname: s3_gw
+    container_name: s3_gw
+    restart: on-failure
+    stop_signal: SIGKILL
+    env_file: [ "./s3/s3.env" ]
+    environment:
+      - S3_GW_LISTEN_ADDRESS=:9000
+      - S3_GW_PEERS_0_ADDRESS=sn:8080
+      - S3_GW_RPC_ENDPOINT=http://morph:30333
+      - S3_GW_TREE_SERVICE=sn:8080
+    volumes:
+      - ./s3/wallet.json:/config/wallet.json
+    ports:
+      - "9000:9000" # S3 Gateway endpoint
+    depends_on:
+      - sn
+
 volumes:
   data:
   cache:
