@@ -24,6 +24,9 @@ grpc:
     tls:
       enables: false
 
+tree:
+  enabled: true
+
 logger:
   level: debug
 
@@ -46,11 +49,15 @@ storage:
         perm: 0770
       blobstor:
         - type: blobovnicza
-          path: /data/blob
+          path: /data/blob/blobovniczas
           perm: 0660
           opened_cache_capacity: 32
           depth: 1
           width: 1
+        - type: fstree
+          path: /data/blob
+      pilorama:
+        path: /data/blob/pilorama.db
       gc:
         remover_batch_size: 100
         remover_sleep_interval: 5m
