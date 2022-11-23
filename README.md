@@ -8,41 +8,22 @@ development purposes only and not recommended for production use.
 # Server requirements
 
 - Docker with docker-compose
-- `expect` 
 - `jq`
 - `curl`
 
 # Quick Start
 
-For Linux machines:
+Run container:
+
 ``` sh
 $ git clone https://github.com/nspcc-dev/neofs-aio.git /opt/neofs
 $ cd /opt/neofs
 $ docker-compose up -d
 ```
 
-All the services will be listening on `localhost` interface by default.
+A storage node container uses persistent storage, so, if you've updated `aio` version, it's recommended to clear local
+volumes before starting the container:
 
-For Windows and macOS use `docker-compose.cross.yml` without `host` network mode.
-``` sh
-$ git clone https://github.com/nspcc-dev/neofs-aio.git /opt/neofs
-$ cd /opt/neofs
-$ docker-compose -f docker-compose.cross.yml up -d
-```
-
-On the first start you have to run (this command will allow you to create containers):
-``` sh
-$ make prepare.ir
-Changing ContainerFee configration value to 0
-Enter account NfgHwwTi3wHAS8aFAN243C5vGbkYDpqLHP password > 
-Sent invocation transaction b50c3035b851db06eb070fadb88c4cd55d56436c01a92c0ba7f3197c9ec3b1fe
-Updating NeoFS epoch to 2
-Enter account NfgHwwTi3wHAS8aFAN243C5vGbkYDpqLHP password > 
-Sent invocation transaction 2a8d0536559f242f5b64bb1b29d4b1f4c7a225ab184a26414b93da18d265f1f4
-```
-
-A storage node container uses persistent storage, so, if you've updated `aio` version, it's recommended to clear local 
-volumes before starting the container:  
 ```
 docker volume rm neofs-aio_data
 docker volume rm neofs-aio_cache
@@ -52,7 +33,7 @@ Also, you may have to make sure the storage node is in the network
 map.
 
 ``` sh
-$ docker exec -ti sn neofs-cli netmap snapshot -c /config/cli-cfg.yaml --rpc-endpoint 127.0.0.1:8080
+$ docker exec -ti aio neofs-cli netmap snapshot -c /config/cli-cfg-sn.yaml --rpc-endpoint 127.0.0.1:8080
 Epoch: 45
 Node 1: 022bb4041c50d607ff871dec7e4cd7778388e0ea6849d84ccbd9aa8f32e16a8131 ONLINE /dns4/localhost/tcp/8080
     Continent: Europe
@@ -69,18 +50,15 @@ Node 1: 022bb4041c50d607ff871dec7e4cd7778388e0ea6849d84ccbd9aa8f32e16a8131 ONLIN
 
 If you don't see the output like this, you can wait for the new Epoch to come
 (about 1 hour), or force the Storage Node registration.
-If the commands fails, make sure you have jq and expect installed.
+If the commands fails, make sure you have jq installed.
 
 ``` sh
-$ docker-compose restart sn
-Restarting sn ... done
 $ make tick.epoch
-Updating NeoFS epoch to 4
-Enter account NfgHwwTi3wHAS8aFAN243C5vGbkYDpqLHP password >
-Sent invocation transaction 89959b243e88184ab8b886ee6b53e13032195197ef45144abff1c64b2b5ea342
+Updating NeoFS epoch to 2
+752aa525dfb36b6447f45b41fd3906db9f6a9cdecd2cf36ce6816b1b6ef453192
 ```
 
-Now everything is ready to server your requests.
+Now everything is ready to serve your requests.
 
 # Systemd unit setup
 
@@ -96,11 +74,8 @@ $ sudo systemctl status neofs-aio
 
 # Build images
 
-In order to build test container image that can be used for instead of mocks run:
-``` sh
-$ make image-testcontainer
-```
 Also, you can build the aio image itself:
+
 ``` sh
 $ make image-aio
 ```
@@ -199,6 +174,7 @@ simplify the URL. Together with `FilePath` attribute in objects it would give
 the sense of a regular static web hosting.
 
 For example:
+
 ``` nginx
     location / {
       set $cid ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo;

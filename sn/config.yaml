@@ -12,7 +12,7 @@ node:
     path: /config/wallet-sn.json
     password: ""
   addresses:
-    - grpc://localhost:8080
+    - grpc://0.0.0.0:8080
   attribute_0: UN-LOCODE:DE FKS
   attribute_1: Price:10
   attribute_2: Deployed:Private
@@ -20,7 +20,7 @@ node:
 grpc:
   num: 1
   0:
-    endpoint: 127.0.0.1:8080
+    endpoint: 0.0.0.0:8080
     tls:
       enables: false
 
