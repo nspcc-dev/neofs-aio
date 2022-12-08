@@ -16,6 +16,7 @@ services:
       - ./vendor/morph_chain.gz:/config/morph_chain.gz
       - ./morph/protocol.privnet.yml:/config/protocol.privnet.yml
       - ./morph/node-wallet.json:/config/node-wallet.json
+      - sidechain:/chain
     healthcheck:
       test: [ "CMD-SHELL", "neo-go query committee -r http://127.0.0.1:30333 | grep 02b3622bf4017bdfe317c58aed5f4c753f206b7db896046fa7d774bbc4bf7f8dc2" ]
       interval: 2s
@@ -132,3 +133,4 @@ services:
 volumes:
   data:
   cache:
+  sidechain:
