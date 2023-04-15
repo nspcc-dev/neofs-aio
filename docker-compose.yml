@@ -13,11 +13,6 @@ services:
       - "./http/http.env"
       - "./rest-gw/rest.env"
     volumes:
-      - ./vendor/locode_db:/config/locode_db
-      - ./vendor/morph_chain.gz:/config/morph_chain.gz
-      - ./morph/protocol.privnet.yml:/config/protocol.privnet.yml
-      - ./morph/node-wallet.json:/config/node-wallet.json
-      - ./morph/node-config.yaml:/config/node-config.yaml
       - ./sn/cli-cfg.yaml:/config/cli-cfg-sn.yaml
       - ./sn/wallet.json:/config/wallet-sn.json
       - ./sn/config.yaml:/config/config-sn.yaml
