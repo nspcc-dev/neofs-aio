@@ -18,20 +18,23 @@ ApplicationConfiguration:
     Type: "boltdb"
     BoltDBOptions:
       FilePath: "/chain/morph.bolt"
-  NodePort: 20333
   Relay: true
-  DialTimeout: 3
-  ProtoTickInterval: 2
-  PingInterval: 30
-  PingTimeout: 90
-  MaxPeers: 10
-  AttemptConnPeers: 5
-  MinPeers: 0
+  P2P:
+    Addresses:
+      - ":20333"
+    DialTimeout: 3s
+    ProtoTickInterval: 2s
+    PingInterval: 30s
+    PingTimeout: 90s
+    MaxPeers: 10
+    AttemptConnPeers: 5
+    MinPeers: 0
   RPC:
     Enabled: true
     EnableCORSWorkaround: false
     MaxGasInvoke: 15
-    Port: 30333
+    Addresses:
+      - ":30333"
     SessionEnabled: true
     SessionExpirationTime: 30
   P2PNotary:
@@ -41,10 +44,15 @@ ApplicationConfiguration:
       Password: "one"
   Prometheus:
     Enabled: true
-    Port: 20001
+    Addresses:
+      - ":20001"
   Pprof:
     Enabled: false
+    Addresses:
+      - ":20011"
     Port: 20011
-  UnlockWallet:
-    Path: "/config/node-wallet.json"
-    Password: "one"
+  Consensus:
+    Enabled: true
+    UnlockWallet:
+      Path: "/config/node-wallet.json"
+      Password: "one"
