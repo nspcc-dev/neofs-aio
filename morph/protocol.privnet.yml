@@ -32,6 +32,8 @@ ApplicationConfiguration:
     EnableCORSWorkaround: false
     MaxGasInvoke: 15
     Port: 30333
+    SessionEnabled: true
+    SessionExpirationTime: 30
   P2PNotary:
     Enabled: true
     UnlockWallet:
