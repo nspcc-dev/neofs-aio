@@ -30,6 +30,11 @@ do
   sleep 5;
 done
 
+set -a
+
+. /config/http.env
+. /config/rest.env
+
 /usr/bin/neofs-http-gw &
 /usr/bin/neofs-rest-gw &
 
