@@ -27,7 +27,7 @@ set -m
 while [[ -z "$(/usr/bin/neofs-cli control healthcheck --endpoint localhost:16513 -c /config/cli-cfg-sn.yaml | grep 'Network status: ONLINE')" ]];
 do
   ./bin/tick.sh
-  sleep 5;
+  sleep 2
 done
 
 set -a
