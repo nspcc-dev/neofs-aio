@@ -24,7 +24,7 @@ done
 set -m
 /usr/bin/neofs-node --config /config/config-sn.yaml &
 
-while [[ -z "$(/usr/bin/neofs-cli control healthcheck --endpoint localhost:16513 -c /config/cli-cfg-sn.yaml | grep 'Health status: READY')" ]];
+while [[ -z "$(/usr/bin/neofs-cli control healthcheck --endpoint localhost:16513 -c /config/cli-cfg-sn.yaml | grep 'Network status: ONLINE')" ]];
 do
   ./bin/tick.sh
   sleep 5;
