@@ -49,4 +49,8 @@ COPY ./morph/node-wallet.json /config/node-wallet.json
 COPY ./morph/node-config.yaml /config/node-config.yaml
 COPY ./bin/ /config/bin
 
+COPY ./http/http.env /config/http.env
+COPY ./rest-gw/rest.env /config/rest.env
+RUN sed -ri 's,^([^=]+)=(.*)+$,\1=${\1-\2},' /config/http.env /config/rest.env
+
 ENTRYPOINT ["/config/bin/init-aio.sh"]
