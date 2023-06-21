@@ -6,9 +6,8 @@ wallet:
 without_mainnet: true
 
 morph:
-  endpoint:
-    client:
-      - address: ws://localhost:30333/ws
+  endpoints:
+    - ws://localhost:30333/ws
   validators: 02b3622bf4017bdfe317c58aed5f4c753f206b7db896046fa7d774bbc4bf7f8dc2
 
 timers:

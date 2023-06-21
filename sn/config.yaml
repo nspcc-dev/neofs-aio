@@ -1,6 +1,6 @@
 morph:
-  rpc_endpoint:
-    - address: ws://localhost:30333/ws
+  endpoints:
+    - ws://localhost:30333/ws
   dial_timeout: 20s
 
 control:
