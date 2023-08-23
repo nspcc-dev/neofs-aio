@@ -56,9 +56,20 @@ storage:
       gc:
         remover_batch_size: 100
         remover_sleep_interval: 5m
+      pilorama:
+        path: tmp/0/blob/pilorama.db # path to the pilorama database. If omitted, `pilorama.db` file is created blobstor.path
+        max_batch_delay: 10ms
+        max_batch_size: 200
 
 object:
   put:
     pool_size_remote: 100
     pool_size_local: 100
 
+tree:
+  enabled: true
+  cache_size: 15
+  replication_worker_count: 16
+  replication_channel_capacity: 16
+  replication_timeout: 5s
+  sync_interval: 1h
