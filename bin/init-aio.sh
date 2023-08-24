@@ -57,11 +57,21 @@ set -a
 if [ $IS_START_HTTP = "true" ]; then
     . /config/http.env
     /usr/bin/neofs-http-gw &
+
+    while [[ "$(curl -s -o /dev/null -w %{http_code} $HTTP_GW_SERVER_0_ADDRESS)" != "404" ]];
+    do
+      sleep 1;
+    done
 fi
 
 if [ $IS_START_REST = "true" ]; then
     . /config/rest.env
     /usr/bin/neofs-rest-gw &
+
+    while [[ "$(curl -s -o /dev/null -w %{http_code} $REST_GW_LISTEN_ADDRESS)" != "404" ]];
+    do
+      sleep 1;
+    done
 fi
 
 echo "aio container started"
