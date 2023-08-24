@@ -1,5 +1,27 @@
 #!/bin/bash
 
+## When we start AIO as a separate container or part of a docker-compose. In this case we move background tasks to foreground.
+## Otherwise we may use AIO container like a base for own container, thus we need just run all AIO services, before our service.
+IS_PURE_START="true"
+## if "true" http service will be started
+IS_START_HTTP="true"
+## if "true" rest service will be started
+IS_START_REST="true"
+
+while getopts d:h:r: option; do
+  case $option in
+    d)
+      IS_PURE_START="$OPTARG"
+      ;;
+    h)
+      IS_START_HTTP="$OPTARG"
+      ;;
+    r)
+      IS_START_REST="$OPTARG"
+      ;;
+  esac
+done
+
 export ACC=/config/morph_chain.gz
 
 /usr/bin/privnet-entrypoint.sh node --config-path /config --privnet &
@@ -32,11 +54,18 @@ done
 
 set -a
 
-. /config/http.env
-. /config/rest.env
+if [ $IS_START_HTTP = "true" ]; then
+    . /config/http.env
+    /usr/bin/neofs-http-gw &
+fi
 
-/usr/bin/neofs-http-gw &
-/usr/bin/neofs-rest-gw &
+if [ $IS_START_REST = "true" ]; then
+    . /config/rest.env
+    /usr/bin/neofs-rest-gw &
+fi
 
 echo "aio container started"
-fg
+
+if [ $IS_PURE_START = "true" ]; then
+    fg
+fi
