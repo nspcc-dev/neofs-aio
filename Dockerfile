@@ -25,7 +25,6 @@ RUN apk add --no-cache \
 
 WORKDIR /
 
-COPY --from=neo-go /usr/bin/privnet-entrypoint.sh /usr/bin/privnet-entrypoint.sh
 COPY --from=neo-go /etc/ssl/certs /etc/ssl/certs
 COPY --from=neo-go /usr/bin/neo-go /usr/bin/neo-go
 COPY --from=neofs-cli /bin/neofs-cli /usr/bin/neofs-cli
@@ -42,11 +41,8 @@ COPY ./http/wallet.json /config/wallet-http.json
 COPY ./rest-gw/wallet.json /config/wallet-rest.json
 COPY ./ir/cli-cfg.yaml /config/cli-cfg-ir.yaml
 COPY ./ir/config.yaml /config/config-ir.yaml
-COPY ./vendor/locode_db /config/locode.db
-COPY ./vendor/morph_chain.gz /config/morph_chain.gz
-COPY ./morph/protocol.privnet.yml /config/protocol.privnet.yml
-COPY ./morph/node-wallet.json /config/node-wallet.json
-COPY ./morph/node-config.yaml /config/node-config.yaml
+COPY ./ir/node-wallet.json /config/node-wallet.json
+COPY ./ir/node-config.yaml /config/node-config.yaml
 COPY ./bin/ /config/bin
 
 COPY ./http/http.env /config/http.env

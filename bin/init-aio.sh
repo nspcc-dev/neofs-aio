@@ -22,19 +22,8 @@ while getopts d:h:r: option; do
   esac
 done
 
-export ACC=/config/morph_chain.gz
-
-/usr/bin/privnet-entrypoint.sh node --config-path /config --privnet &
-
-while [[ "$(curl -s -o /dev/null -w %{http_code} localhost:30333)" != "422" ]];
-do
-  sleep 2;
-done
-
 export NEOGO=/usr/bin/neo-go
 export WALLET=/config/node-wallet.json
-
-cd /config && ./bin/config.sh ContainerFee 0 && ./bin/config.sh ContainerAliasFee 0
 
 /usr/bin/neofs-ir --config /config/config-ir.yaml &
 
@@ -43,8 +32,23 @@ do
   sleep 2;
 done
 
+CONSADDR=$(jq -r .accounts[2].address "${WALLET}")
+SNADDR=$(jq -r  .accounts[0].address /config/wallet-sn.json)
+
+${NEOGO} wallet nep17 transfer \
+        --wallet-config /config/node-config.yaml \
+        -r http://localhost:30333 \
+        --from ${CONSADDR} --force \
+        --to ${SNADDR} \
+        --token GAS \
+        --amount 100
+
+sleep 2 # https://github.com/nspcc-dev/neo-go/issues/3244
+
 set -m
 /usr/bin/neofs-node --config /config/config-sn.yaml &
+
+cd /config # tick.sh and config.sh require this working directory
 
 while [[ -z "$(/usr/bin/neofs-cli control healthcheck --endpoint localhost:16513 -c /config/cli-cfg-sn.yaml | grep 'Network status: ONLINE')" ]];
 do
@@ -53,6 +57,8 @@ do
 done
 
 set -a
+
+./bin/config.sh ContainerFee 0 && ./bin/config.sh ContainerAliasFee 0
 
 if [ $IS_START_HTTP = "true" ]; then
     . /config/http.env
@@ -68,7 +74,7 @@ if [ $IS_START_REST = "true" ]; then
     . /config/rest.env
     /usr/bin/neofs-rest-gw &
 
-    while [[ "$(curl -s -o /dev/null -w %{http_code} $REST_GW_LISTEN_ADDRESS)" != "404" ]];
+    while [[ "$(curl -s -o /dev/null -w %{http_code} $REST_GW_SERVER_LISTEN_ADDRESS)" != "404" ]];
     do
       sleep 1;
     done
