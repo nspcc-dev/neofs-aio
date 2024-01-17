@@ -20,7 +20,7 @@ morph:
       - 127.0.0.1:20333
     rpc:
       listen:
-        - 127.0.0.1:30333
+        - 0.0.0.0:30333
     p2p:
       dial_timeout: 3s
       proto_tick_interval: 2s
