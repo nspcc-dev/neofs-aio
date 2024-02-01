@@ -4,7 +4,7 @@
 NEOGO="${NEOGO:-docker exec aio neo-go}"
 
 # Wallet file to change config value
-WALLET="${WALLET:-./morph/node-wallet.json}"
+WALLET="${WALLET:-./ir/node-wallet.json}"
 CONFIG_IMG="${CONFIG:-/config/node-config.yaml}"
 
 # Netmap contract address resolved by NNS
