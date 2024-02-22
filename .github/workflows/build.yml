@@ -57,7 +57,7 @@ jobs:
       - name: Set latest tag
         id: setlatest
         if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.use_latest_tag == 'true') }}
-        run: echo "latest=,nspccdev/neofs-rest-gw:latest" >> $GITHUB_OUTPUT
+        run: echo "latest=,nspccdev/neofs-aio:latest" >> $GITHUB_OUTPUT
 
       - name: Build and push image
         uses: docker/build-push-action@v5
