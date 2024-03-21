@@ -36,9 +36,8 @@ ${NEOGO} wallet nep17 transfer \
         --from ${CONSADDR} --force \
         --to ${SNADDR} \
         --token GAS \
-        --amount 100
-
-sleep 2 # https://github.com/nspcc-dev/neo-go/issues/3244
+        --amount 100 \
+	--await
 
 set -m
 /usr/bin/neofs-node --config /config/config-sn.yaml &
