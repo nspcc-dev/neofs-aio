@@ -10,13 +10,11 @@ services:
     restart: always
     stop_signal: SIGKILL
     env_file:
-      - "./http/http.env"
       - "./rest-gw/rest.env"
     volumes:
       - ./sn/cli-cfg.yaml:/config/cli-cfg-sn.yaml
       - ./sn/wallet.json:/config/wallet-sn.json
       - ./sn/config.yaml:/config/config-sn.yaml
-      - ./http/wallet.json:/config/wallet-http.json
       - ./rest-gw/wallet.json:/config/wallet-rest.json
       - ./ir/cli-cfg.yaml:/config/cli-cfg-ir.yaml
       - ./ir/config.yaml:/config/config-ir.yaml
@@ -25,7 +23,6 @@ services:
       - "30333:30333" # RPC
       - "8080:8080"   # NeoFS API RPC
       - "16513:16513" # Control service
-      - "8081:8081" # HTTP Gateway endpoint
       - "8090:8090" # REST Gateway endpoint
 
   nginx_gw:
@@ -36,7 +33,7 @@ services:
     restart: on-failure
     stop_signal: SIGKILL
     volumes:
-      - ./http/nginx.conf:/etc/nginx/nginx.conf
+      - ./rest-gw/nginx.conf:/etc/nginx/nginx.conf
       - cache:/cache
     ports:
       - "8082:8082" # nginx gateway endpoint

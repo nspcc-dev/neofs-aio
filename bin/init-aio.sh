@@ -3,8 +3,6 @@
 ## When we start AIO as a separate container or part of a docker-compose. In this case we move background tasks to foreground.
 ## Otherwise we may use AIO container like a base for own container, thus we need just run all AIO services, before our service.
 IS_PURE_START="true"
-## if "true" http service will be started
-IS_START_HTTP="true"
 ## if "true" rest service will be started
 IS_START_REST="true"
 
@@ -12,9 +10,6 @@ while getopts d:h:r: option; do
   case $option in
     d)
       IS_PURE_START="$OPTARG"
-      ;;
-    h)
-      IS_START_HTTP="$OPTARG"
       ;;
     r)
       IS_START_REST="$OPTARG"
@@ -59,16 +54,6 @@ done
 set -a
 
 ./bin/config.sh ContainerFee 0 && ./bin/config.sh ContainerAliasFee 0
-
-if [ $IS_START_HTTP = "true" ]; then
-    . /config/http.env
-    /usr/bin/neofs-http-gw &
-
-    while [[ "$(curl -s -o /dev/null -w %{http_code} $HTTP_GW_SERVER_0_ADDRESS)" != "404" ]];
-    do
-      sleep 1;
-    done
-fi
 
 if [ $IS_START_REST = "true" ]; then
     . /config/rest.env

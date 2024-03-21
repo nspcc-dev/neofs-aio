@@ -88,12 +88,12 @@ First, you need to create a container to store your object. Because there is
 only one storage node in the All-in-One setup, you can only have one replica of
 your data. Let's create a container using `neofs-cli`. Container creation
 requires on-chain operations, so it may take up to 5-10 seconds to complete.
-Here we use the pre-generated key of the HTTP Gateway for simplicity.
+Here we use the pre-generated key of the REST Gateway for simplicity.
 
 Password for wallet is `one`.
 
 ``` sh
-$ neofs-cli -r localhost:8080 -w http/wallet.json \
+$ neofs-cli -r localhost:8080 -w rest-gw/wallet.json \
             --address NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo \
             container create \
             --policy "REP 1" --basic-acl public-read --await
@@ -126,7 +126,7 @@ $ curl http://localhost:8090/v1/containers/GfWw35kHds7gKWmSvW7Zi4U39K7NMLK8EfXBQ
 ## Put an object with neofs-cli
 
 ``` sh
-$ neofs-cli -r localhost:8080 -w http/wallet.json \
+$ neofs-cli -r localhost:8080 -w rest-gw/wallet.json \
             --address NPFCqWHfi9ixCJRu7DABRbVfXRbkSEr9Vo \
             object put \
             --cid GfWw35kHds7gKWmSvW7Zi4U39K7NMLK8EfXBQ5FPJA46 \
@@ -136,19 +136,21 @@ $ neofs-cli -r localhost:8080 -w http/wallet.json \
   CID: GfWw35kHds7gKWmSvW7Zi4U39K7NMLK8EfXBQ5FPJA46
 ```
 
-## Put an object via http
+## Put an object via REST
 
 ``` sh
 $ curl -F 'file=@cat.jpg;filename=cat.jpg' \
-       http://localhost:8081/upload/ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo
+       http://localhost:8090/v1/upload/ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo
 {
     "object_id": "B4J4L61X6zFcz5fcmZaCJJNZfFFTE6uT4pz7dqP87m6m",
     "container_id": "ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo"
 }
 ```
 
-The full description of HTTP API supported by HTTP Gateway can be found in
-[neofs-http-gw repository](https://github.com/nspcc-dev/neofs-http-gw).
+The full description of REST API supported by NeoFS REST gateway can be found in
+its OpenAPI specification ([http://localhost:8090](http://localhost:8090) shows
+it), for more info take a look at [neofs-rest-gw repository](https://github.com/nspcc-dev/neofs-rest-gw)
+as well.
 
 ## Get an object via nginx
 
@@ -167,7 +169,7 @@ x-container-id: ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo
 Content-Disposition: inline; filename=cat.jpg
 ```
 
-Having nginx as a reverse proxy behind NeoFS HTTP Gateway allows you to tune the
+Having nginx as a reverse proxy for NeoFS REST Gateway allows you to tune the
 behaviour according to your application needs. For example, you can set the
 rewriting rules to use the pre-configured container for a specific domain to
 simplify the URL. Together with `FilePath` attribute in objects it would give
@@ -179,19 +181,20 @@ For example:
     location / {
       set $cid ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo;
 
-      rewrite '^(/[0-9a-zA-Z\-]{43,44})$' /get/$cid/$1 break;
-      rewrite '^/$'                       /get_by_attribute/$cid/FileName/index.html break;
-      rewrite '^/([^/]*)$'                /get_by_attribute/$cid/FileName/$1 break;
-      rewrite '^(/.*)$'                   /get_by_attribute/$cid/FilePath/$1 break;
+      rewrite '^(/v1/.*)$'                $1 break;
+      rewrite '^(/[0-9a-zA-Z\-]{43,44})$' /v1/get/$cid/$1 break;
+      rewrite '^/$'                       /v1/get_by_attribute/$cid/FileName/index.html break;
+      rewrite '^/([^/]*)$'                /v1/get_by_attribute/$cid/FileName/$1 break;
+      rewrite '^(/.*)$'                   /v1/get_by_attribute/$cid/FilePath/$1 break;
 
-      proxy_pass http://localhost:8081;
+      proxy_pass http://localhost:8083;
 ```
 
 This allow us to upload objects with `FilePath` attached and get them as if they
 were put in a directory structure of the regular web server.
 
 ``` sh
- curl -F 'file=@cat.jpg;filename=cat.jpg' -H "X-Attribute-FilePath: /pic/cat.jpg" http://localhost:8081/upload/ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo 
+ curl -F 'file=@cat.jpg;filename=cat.jpg' -H "X-Attribute-FilePath: /pic/cat.jpg" http://localhost:8090/v1/upload/ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo 
 {
 	"object_id": "4s3T11pktSfSxRfjpJ7BsiuYr2hi7po6nUQ333SPYkWF",
 	"container_id": "ADsJLhJhLQRGMufFin56PCTtPK1BiSxbg6bDmdgSB1Mo"

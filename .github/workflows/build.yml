@@ -71,6 +71,5 @@ jobs:
             NEOGO_HUB_TAG=${{ steps.setver.outputs.NEOGO_VERSION }}
             NEOFS_HUB_IMAGE=nspccdev/neofs
             NEOFS_HUB_TAG=${{ steps.setver.outputs.AIO_VERSION }}
-            NEOFS_HTTP_HUB_TAG=${{ steps.setver.outputs.HTTPGW_VERSION }}
             NEOFS_REST_HUB_TAG=${{ steps.setver.outputs.RESTGW_VERSION }}
           tags: nspccdev/neofs-aio:${{ steps.setver.outputs.AIO_VERSION }}${{ steps.setlatest.outputs.latest }}

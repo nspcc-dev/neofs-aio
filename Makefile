@@ -21,7 +21,6 @@ image-aio:
         --build-arg NEOFS_HUB_TAG=$(AIO_VERSION) \
 		--build-arg NEOGO_HUB_IMAGE=$(NEOGO_HUB_IMAGE) \
         --build-arg NEOGO_HUB_TAG=$(NEOGO_VERSION) \
-        --build-arg NEOFS_HTTP_HUB_TAG=$(HTTPGW_VERSION) \
         --build-arg NEOFS_REST_HUB_TAG=$(RESTGW_VERSION) \
 		-f Dockerfile \
 		-t $(AIO_IMAGE):$(AIO_VERSION) .
@@ -35,6 +34,5 @@ version:
 	@echo $(VERSION)
 	@echo "neofs-node: $(AIO_VERSION)"
 	@echo "neo-go: $(NEOGO_VERSION)"
-	@echo "neofs-http-gw: $(HTTPGW_VERSION)"
 	@echo "neofs-rest-gw: $(RESTGW_VERSION)"
 
