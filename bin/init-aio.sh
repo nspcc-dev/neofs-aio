@@ -58,7 +58,7 @@ if [ $IS_START_REST = "true" ]; then
     . /config/rest.env
     /usr/bin/neofs-rest-gw &
 
-    while [[ "$(curl -s -o /dev/null -w %{http_code} $REST_GW_SERVER_LISTEN_ADDRESS)" != "404" ]];
+    while [[ "$(curl -s -o /dev/null -w %{http_code} $REST_GW_SERVER_LISTEN_ADDRESS)" != "307" ]];
     do
       sleep 1;
     done
