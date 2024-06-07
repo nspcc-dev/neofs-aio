@@ -65,7 +65,7 @@ jobs:
           context: .
           file: Dockerfile
           push: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.push_image == 'true') }}
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           build-args: |
             NEOGO_HUB_IMAGE=nspccdev/neo-go
             NEOGO_HUB_TAG=${{ steps.setver.outputs.NEOGO_VERSION }}
