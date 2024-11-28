@@ -38,7 +38,6 @@ morph:
 fschain_autodeploy: true
 
 timers:
-  emit:  50
   stop_estimation:
     mul: 1
     div: 4
