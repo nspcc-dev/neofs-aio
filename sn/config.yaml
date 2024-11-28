@@ -42,8 +42,6 @@ storage:
         path: /data/metabase.db
         perm: 0770
       blobstor:
-        - type: peapod
-          path: /data/blob/peapod.db
         - type: fstree
           path: /data/blob
       gc:
