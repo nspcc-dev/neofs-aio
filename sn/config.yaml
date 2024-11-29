@@ -1,4 +1,4 @@
-morph:
+fschain:
   endpoints:
     - ws://localhost:30333/ws
   dial_timeout: 20s
@@ -18,11 +18,9 @@ node:
   attribute_2: Deployed:Private
 
 grpc:
-  num: 1
-  0:
-    endpoint: 0.0.0.0:8080
+  - endpoint: 0.0.0.0:8080
     tls:
-      enables: false
+      enabled: false
 
 logger:
   level: debug
@@ -36,7 +34,6 @@ pprof:
   address: localhost:6663
 
 storage:
-  shard_num: 1
   shard:
     0:
       writecache:
@@ -45,8 +42,6 @@ storage:
         path: /data/metabase.db
         perm: 0770
       blobstor:
-        - type: peapod
-          path: /data/blob/peapod.db
         - type: fstree
           path: /data/blob
       gc:
@@ -60,7 +55,6 @@ storage:
 object:
   put:
     pool_size_remote: 100
-    pool_size_local: 100
 
 tree:
   enabled: true
