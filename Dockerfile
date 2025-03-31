@@ -4,12 +4,12 @@ ARG NEOGO_HUB_IMAGE=nspccdev/neo-go
 ARG NEOGO_HUB_TAG=latest
 ARG NEOFS_REST_HUB_TAG=latest
 
-FROM ${NEOGO_HUB_IMAGE}:${NEOGO_HUB_TAG} as neo-go
-FROM ${NEOFS_HUB_IMAGE}-cli:${NEOFS_HUB_TAG} as neofs-cli
-FROM ${NEOFS_HUB_IMAGE}-ir:${NEOFS_HUB_TAG} as neofs-ir
-FROM ${NEOFS_HUB_IMAGE}-storage:${NEOFS_HUB_TAG} as neofs-storage
-FROM ${NEOFS_HUB_IMAGE}-adm:${NEOFS_HUB_TAG} as neofs-adm
-FROM ${NEOFS_HUB_IMAGE}-rest-gw:${NEOFS_REST_HUB_TAG} as neofs-rest-gw
+FROM ${NEOGO_HUB_IMAGE}:${NEOGO_HUB_TAG} AS neo-go
+FROM ${NEOFS_HUB_IMAGE}-cli:${NEOFS_HUB_TAG} AS neofs-cli
+FROM ${NEOFS_HUB_IMAGE}-ir:${NEOFS_HUB_TAG} AS neofs-ir
+FROM ${NEOFS_HUB_IMAGE}-storage:${NEOFS_HUB_TAG} AS neofs-storage
+FROM ${NEOFS_HUB_IMAGE}-adm:${NEOFS_HUB_TAG} AS neofs-adm
+FROM ${NEOFS_HUB_IMAGE}-rest-gw:${NEOFS_REST_HUB_TAG} AS neofs-rest-gw
 
 # Executable image
 FROM alpine AS neofs-aio
