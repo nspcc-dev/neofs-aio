@@ -13,9 +13,10 @@ node:
     password: ""
   addresses:
     - grpc://0.0.0.0:8080
-  attribute_0: UN-LOCODE:DE FKS
-  attribute_1: Price:10
-  attribute_2: Deployed:Private
+  attributes:
+    - UN-LOCODE:DE FKS
+    - Price:10
+    - Deployed:Private
 
 grpc:
   - endpoint: 0.0.0.0:8080
@@ -34,32 +35,19 @@ pprof:
   address: localhost:6663
 
 storage:
-  shard:
-    0:
-      writecache:
+  shards:
+    - writecache:
         enabled: false
       metabase:
         path: /data/metabase.db
         perm: 0770
       blobstor:
-        - type: fstree
-          path: /data/blob
+        type: fstree
+        path: /data/blob
       gc:
         remover_batch_size: 100
         remover_sleep_interval: 5m
-      pilorama:
-        path: tmp/0/blob/pilorama.db # path to the pilorama database. If omitted, `pilorama.db` file is created blobstor.path
-        max_batch_delay: 10ms
-        max_batch_size: 200
 
 object:
   put:
     pool_size_remote: 100
-
-tree:
-  enabled: true
-  cache_size: 15
-  replication_worker_count: 16
-  replication_channel_capacity: 16
-  replication_timeout: 5s
-  sync_interval: 1h

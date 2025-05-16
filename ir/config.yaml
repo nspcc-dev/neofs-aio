@@ -56,10 +56,6 @@ audit:
   pdp:
     max_sleep_interval: 100ms
 
-netmap_cleaner:
-  enabled: true
-  threshold: 3
-
 workers:
   netmap: 100
   balance: 100
