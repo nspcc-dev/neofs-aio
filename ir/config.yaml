@@ -52,10 +52,6 @@ emit:
   storage:
     amount: 400000000
 
-audit:
-  pdp:
-    max_sleep_interval: 100ms
-
 workers:
   netmap: 100
   balance: 100
