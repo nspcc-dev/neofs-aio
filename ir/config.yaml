@@ -14,7 +14,8 @@ fschain:
     storage:
       type: boltdb
       path: "/chain/fschain.bolt"
-    time_per_block: 1s
+    time_per_block: 50ms
+    max_time_per_block: 2s
     max_traceable_blocks: 200000
     seed_nodes:
       - 127.0.0.1:20333
@@ -51,10 +52,6 @@ timers:
 emit:
   storage:
     amount: 400000000
-
-audit:
-  pdp:
-    max_sleep_interval: 100ms
 
 workers:
   netmap: 100
