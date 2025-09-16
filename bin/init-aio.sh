@@ -5,14 +5,19 @@
 IS_PURE_START="true"
 ## if "true" rest service will be started
 IS_START_REST="true"
+## if "true" S3 service will be started
+IS_START_S3="true"
 
-while getopts d:h:r: option; do
+while getopts d:h:r:s: option; do
   case $option in
     d)
       IS_PURE_START="$OPTARG"
       ;;
     r)
       IS_START_REST="$OPTARG"
+      ;;
+    s)
+      IS_START_S3="$OPTARG"
       ;;
   esac
 done
@@ -59,6 +64,16 @@ if [ $IS_START_REST = "true" ]; then
     /usr/bin/neofs-rest-gw &
 
     while [[ "$(curl -s -o /dev/null -w %{http_code} $REST_GW_SERVER_ENDPOINTS_0_ADDRESS)" != "307" ]];
+    do
+      sleep 1;
+    done
+fi
+
+if [ "$IS_START_S3" = "true" ]; then
+    . /config/s3.env
+    /usr/bin/neofs-s3-gw &
+
+    while [[ "$(curl -s -o /dev/null -w %{http_code} $S3_GW_SERVER_0_ADDRESS)" != "200" ]];
     do
       sleep 1;
     done

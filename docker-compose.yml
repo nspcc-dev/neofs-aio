@@ -24,6 +24,7 @@ services:
       - "8080:8080"   # NeoFS API RPC
       - "16513:16513" # Control service
       - "8090:8090" # REST Gateway endpoint
+      - "9000:9000" # S3 Gateway endpoint
 
   nginx_gw:
     image: nginx:stable-alpine
