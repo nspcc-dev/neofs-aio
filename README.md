@@ -3,7 +3,12 @@
 Single node deployment helper provides instructions on how to deploy all NeoFS
 components in the on-premise setup on one physical or virtual server. There will
 be just one instance of a service of each type, hence it is suitable for
-development purposes only and not recommended for production use.
+development purposes only and not recommended for production use. Included into
+the image:
+ * NeoFS inner ring node with internal consensus
+ * NeoFS storage node
+ * NeoFS REST gateway
+ * NeoFS S3 gateway
 
 # Server requirements
 
