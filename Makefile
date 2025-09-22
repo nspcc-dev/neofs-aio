@@ -22,6 +22,7 @@ image-aio:
 		--build-arg NEOGO_HUB_IMAGE=$(NEOGO_HUB_IMAGE) \
         --build-arg NEOGO_HUB_TAG=$(NEOGO_VERSION) \
         --build-arg NEOFS_REST_HUB_TAG=$(RESTGW_VERSION) \
+        --build-arg NEOFS_S3_HUB_TAG=$(S3GW_VERSION) \
 		-f Dockerfile \
 		-t $(AIO_IMAGE):$(AIO_VERSION) .
 
