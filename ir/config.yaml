@@ -40,15 +40,9 @@ fschain:
 fschain_autodeploy: true
 
 timers:
-  stop_estimation:
-    mul: 1
-    div: 4
   collect_basic_income:
     mul: 1
     div: 2
-  distribute_basic_income:
-    mul: 3
-    div: 4
 
 emit:
   storage:
