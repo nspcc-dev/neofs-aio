@@ -5,10 +5,10 @@ components in the on-premise setup on one physical or virtual server. There will
 be just one instance of a service of each type, hence it is suitable for
 development purposes only and not recommended for production use. Included into
 the image:
- * NeoFS inner ring node with internal consensus
- * NeoFS storage node
- * NeoFS REST gateway
- * NeoFS S3 gateway
+ * NeoFS inner ring node with internal consensus, port 30333 exposed for JSON-RPC
+ * NeoFS storage node, port 8080 open for gRPC and port 16513 for control service
+ * NeoFS REST gateway, available via port 8090
+ * NeoFS S3 gateway, available via port 9000
 
 # Server requirements
 
