@@ -66,3 +66,7 @@ prometheus:
 control:
   grpc:
     endpoint: localhost:16512
+
+experimental:
+  allow_ec: true
+  chain_meta_data: true
