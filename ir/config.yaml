@@ -3,8 +3,6 @@ wallet:
   address: Nhfg3TbpwogLvDGVvAvqyThbsHgoSUKwtn
   password: 'one'
 
-without_mainnet: true
-
 fschain:
   validators: 02b3622bf4017bdfe317c58aed5f4c753f206b7db896046fa7d774bbc4bf7f8dc2
   consensus:
@@ -36,8 +34,6 @@ fschain:
         interval: 30s
         timeout: 90s
     set_roles_in_genesis: true
-
-fschain_autodeploy: true
 
 timers:
   collect_basic_income:
