@@ -1,4 +1,5 @@
 fschain:
+  quota_ttl: 5s
   endpoints:
     - ws://localhost:30333/ws
   dial_timeout: 20s
