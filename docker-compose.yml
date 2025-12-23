@@ -1,6 +1,5 @@
 ---
 
-version: "2.4"
 services:
   aio:
     image: nspccdev/neofs-aio:${AIO_VERSION}
