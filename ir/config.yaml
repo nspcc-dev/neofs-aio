@@ -69,4 +69,8 @@ control:
 
 experimental:
   allow_ec: true
-  chain_meta_data: true
+  chain_meta_data:
+    enabled: true
+    seed_port: 20334
+    p2p_port: 20334
+    rpc_port: 30334
