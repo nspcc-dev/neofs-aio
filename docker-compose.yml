@@ -25,6 +25,10 @@ services:
       - "16513:16513" # Control service
       - "8090:8090" # REST Gateway endpoint
       - "9000:9000" # S3 Gateway endpoint
+#      - "6661:6661" # NeoFS IR's pprof
+#      - "6662:6662" # NeoFS IR's metrics
+#      - "6663:6663" # NeoFS SN's pprof
+#      - "6664:6664" # NeoFS SN's metrics
 
   nginx_gw:
     image: nginx:stable-alpine

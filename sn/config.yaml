@@ -29,11 +29,11 @@ logger:
 
 prometheus:
   enabled: false
-  address: localhost:6664
+  address: :6664
 
 pprof:
   enabled: false
-  address: localhost:6663
+  address: :6663
 
 storage:
   shards:
