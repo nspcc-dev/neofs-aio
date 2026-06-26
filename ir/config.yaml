@@ -57,11 +57,11 @@ logger:
 
 pprof:
   enabled: false
-  address: localhost:6661
+  address: :6661
 
 prometheus:
   enabled: false
-  address: localhost:6662
+  address: :6662
 
 control:
   grpc:
