@@ -52,3 +52,9 @@ storage:
 object:
   put:
     pool_size_remote: 100
+
+metadata:
+  path: /data/
+  seed_port: 20334
+  p2p_addresses: 127.0.0.1:21333
+  rpc_addresses: 127.0.0.1:31333
