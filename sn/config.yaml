@@ -49,10 +49,6 @@ storage:
         remover_batch_size: 100
         remover_sleep_interval: 5m
 
-object:
-  put:
-    pool_size_remote: 100
-
 metadata:
   path: /data/
   seed_port: 20334
