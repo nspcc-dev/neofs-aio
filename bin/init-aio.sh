@@ -51,8 +51,7 @@ cd /config # tick.sh and config.sh require this working directory
 
 while [[ -z "$(/usr/bin/neofs-cli control healthcheck --endpoint localhost:16513 -c /config/cli-cfg-sn.yaml | grep 'Network status: ONLINE')" ]];
 do
-  ./bin/tick.sh
-  sleep 2
+  sleep 1
 done
 
 set -a
